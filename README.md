@@ -27,7 +27,6 @@ ___
 -XX:+UseConcMarkSweepGC
 -XX:+UseParNewGC
 -XX:ReservedCodeCacheSize=[between 128m and 240m, depending on how much physical memory you have available]
--XX:+HeapDumpOnOutOfMemoryError
 -XX:-OmitStackTraceInFastThrow
 -XX:MaxJavaStackTraceDepth=-1
 ```
@@ -108,6 +107,8 @@ These control what algorithm is used for garbage collection. This particular com
 
 **-XX:-OmitStackTraceInFastThrow** - This is a flag recommended by Jetbrain. A description of what this flag does can be found [here](http://www.oracle.com/technetwork/java/javase/relnotes-139183.html). Essentially Intellij may check for certain built-in exceptions thrown in the VM -- or they may be thrown by misbehaving plugins -- and producing stack traces for an exception requires a lot of overhead. Using this option prevents stack traces from being generated for these exceptions and may therefore reduce jitteriness caused by resources being used for this purpose when the exceptions are insignificant.
 * There is [insignificant](https://groups.google.com/a/jclarity.com/d/msg/friends/4JOO6M29Jr0/IV5682yWh0QJ) overhead associated with using this option so it is recommended to use it unless you want to debug Intellij itself or a misbehaving plugin.
+
+**-XX:+HeapDumpOnOutOfMemoryError** - Will cause a dump of the heap when an `OutOfMemoryError` error occurs (as explained [here](http://www.oracle.com/technetwork/java/javase/clopts-139448.html#gbzrr)). There is no overhead for using this option so it may be used by default however it is not necessary unless you are experiencing `OutOfMemoryError` errors often.
 
 # Contributing
 
