@@ -22,6 +22,7 @@ ___
 
 ```
 -server
+-ea
 -Xmx[memoryValue, at least 1/4 total physical memory. Recommend 1/2 to 3/4.]
 -Xms[memoryValue, at least 1/2 Xmx. Can be = to Xmx]
 -XX:+UseConcMarkSweepGC
@@ -115,6 +116,9 @@ These control what algorithm is used for garbage collection. This particular com
 **-XX:MaxJavaStackTraceDepth=[integer]** - [This specifies how many entries a stack trace for a thrown error or exception can have](https://stackoverflow.com/a/19331083) before a `StackOverflowError` is thrown.
 * The JVM has a default of 1024 entries before throwing `StackOverflowError`.
 * Since you are using IntelliJ I am assuming you would want the entire stack trace (I mean, you're developing right?) and so the recommend value for this is **-1** (unlimited).
+
+**-ea** - This option enables assertions.
+* If you are programming in Java and are using assertions in your code you need to use this option in order to have those assertions throw `AssertionError`. There is no performance overhead with this option if you are not using assertions (or not coding in Java).
 
 # Contributing
 
