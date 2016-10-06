@@ -27,7 +27,6 @@ ___
 -XX:+UseParNewGC
 -XX:ReservedCodeCacheSize=[between 128m and 240m, depending on how much physical memory you have available]
 -XX:-OmitStackTraceInFastThrow
--XX:MaxJavaStackTraceDepth=-1
 -Dsun.io.useCanonCaches=false
 ```
 
@@ -124,10 +123,10 @@ These control what algorithm is used for garbage collection. This particular com
 
 **-XX:MaxJavaStackTraceDepth=[integer]** - [This specifies how many entries a stack trace for a thrown error or exception can have](https://stackoverflow.com/a/19331083) before a `StackOverflowError` is thrown.
 * The JVM has a default of 1024 entries before throwing `StackOverflowError`.
-* Since you are using IntelliJ I am assuming you would want the entire stack trace (I mean, you're developing right?) and so the recommend value for this is **-1** (unlimited).
+* If you are dealing with huge stack traces you can use this option to increase the allowed entriers before overflow.
 
 **-ea** - This option enables assertions.
-* If you are programming in Java and are using assertions in your code you need to use this option in order to have those assertions throw `AssertionError`. There is no performance overhead with this option if you are not using assertions (or not coding in Java).
+* If you are debugging Intellij or a plugin for it you need to use this option in order to have any assertions throw `AssertionError`. There is no performance overhead with this option if you are not using assertions (or not coding in Java).
 
 **-Dsun.io.useCanonCaches=[boolean]** - Specifies whether canonical file paths are cached.
 * [By default java caches filenames for 30 seconds](https://stackoverflow.com/a/7479642).
