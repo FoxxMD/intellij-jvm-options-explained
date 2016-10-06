@@ -30,6 +30,7 @@ ___
 -XX:ReservedCodeCacheSize=[between 128m and 240m, depending on how much physical memory you have available]
 -XX:-OmitStackTraceInFastThrow
 -XX:MaxJavaStackTraceDepth=-1
+-Dsun.io.useCanonCaches=false
 ```
 
 # Heap on the VM
@@ -119,6 +120,10 @@ These control what algorithm is used for garbage collection. This particular com
 
 **-ea** - This option enables assertions.
 * If you are programming in Java and are using assertions in your code you need to use this option in order to have those assertions throw `AssertionError`. There is no performance overhead with this option if you are not using assertions (or not coding in Java).
+
+**-Dsun.io.useCanonCaches=[boolean]** - Specifies whether canonical file paths are cached.
+* [By default java caches filenames for 30 seconds](https://stackoverflow.com/a/7479642).
+* Jetbrians recommend setting the value of this option to [**false**](https://intellij-support.jetbrains.com/hc/en-us/articles/206544869-Configuring-JVM-options-and-platform-properties). I'm guessing this is because IntelliJ frequently deals with file paths/names and frequent changes can cause a performance hit when these properties change and the filenames are still cached.
 
 # Contributing
 
