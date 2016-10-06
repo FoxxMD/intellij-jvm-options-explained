@@ -1,8 +1,6 @@
 # Intellij Jvm Options Explained
 
-Writing this as a guide for myself and other Intellij users who want to tune JVM options but have no idea what any of them do.
-
-I will attempt to explain each, in context, and also document sources on where i found explainations (if any).
+Intellij is run on the Java Virtual Machine (VM). The VM has many options/flags that can be used to tune its performance which, by extension, is IntelliJ's performance. This guide can help you get more performance out of your Jetbrains IDE or help you fix problems occuring due to the VMs default configuration. I wrote this guide from the perspective of a person curious about what all these options mean but has no idea what they do.
 
 # TL;DR
 
@@ -33,7 +31,17 @@ ___
 -Dsun.io.useCanonCaches=false
 ```
 
-# Heap on the VM
+# How to Edit VM Options
+
+The easiest way to edit these options for your Jetbrains IDE is to use the methods described in this [article](https://github.com/FoxxMD/intellij-jvm-options-explained):
+
+> The recommended way of changing the JVM options in the recent product versions is from the **Help | Edit Custom VM Options** menu. This action will create a copy of the .vmoptions file in the IDE config directory and open an editor where you can change them.
+
+If that method is unavailabe the articles lists out manual ways to edit those files. Read it carefully!
+
+# VM Options, Explained!
+
+## Heap on the VM
 
 Intellij is run on the Java Virtual Machine (VM). The **[heap](https://javarevisited.blogspot.com/2011/05/java-heap-space-memory-size-jvm.html)** is the memory (in RAM) that is allocated to the java virtual machine. **So the heap size is total amount of memory that Intellij can use to operate.**
 
@@ -44,7 +52,7 @@ Intellij is run on the Java Virtual Machine (VM). The **[heap](https://javarevis
 **-Xms[memoryVal]** - [Specifies the initial memory allocation of the heap for the VM.](https://stackoverflow.com/a/14763095) This will be the amount of memory Intellij starts with.
 * Increasing this value should make Intellij start up faster as it will have a larger pool initially and so will not have to wait to allocate more memory as it spins up.
 
-# Garbage Collection
+## Garbage Collection
 
 The **garbage collector** (GC) is a program in the VM that removes unused objects/resources and frees up space on the heap.
 
@@ -74,7 +82,7 @@ There are two ways to manage the young generation:
 * [This flag is equivalent](https://blogs.oracle.com/jonthecollector/entry/the_second_most_important_gc) to -XX:NewSize and -XX:MaxNewSize, setting the same value for both.
 * The only advantage this has compared to NewRatio is it allows more granular control of the young generation size.
 
-## Other GC Flags
+### Other GC Flags
 
 I recommend using these two flags together:
 
@@ -92,7 +100,7 @@ These control what algorithm is used for garbage collection. This particular com
 * Normally not a huge factor in performance.
 * Most values I see are between 8 and 6.
 
-# Everything Else
+## Everything Else
 
 **-Xss=[memoryValue]** - [Specifies the memory allocated to a new stack](http://www.onkarjoshi.com/blog/209/using-xss-to-adjust-java-default-thread-stack-size-to-save-memory-and-prevent-stackoverflowerror/)
 * Every thread created in the VM gets its own stack space. This is space used to store local variables and references.
