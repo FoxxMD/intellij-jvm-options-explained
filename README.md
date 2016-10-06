@@ -23,8 +23,9 @@ ___
 -ea
 -Xmx[memoryValue, at least 1/4 total physical memory. Recommend 1/2 to 3/4.]
 -Xms[memoryValue, at least 1/2 Xmx. Can be = to Xmx]
--XX:+UseConcMarkSweepGC
--XX:+UseParNewGC
+-XX:+UseG1GC
+-XX:-UseParNewGC
+-XX:-UseConcMarkSweepGC
 -XX:ReservedCodeCacheSize=[between 128m and 240m, depending on how much physical memory you have available]
 -XX:-OmitStackTraceInFastThrow
 -Dsun.io.useCanonCaches=false
@@ -81,14 +82,28 @@ There are two ways to manage the young generation:
 * [This flag is equivalent](https://blogs.oracle.com/jonthecollector/entry/the_second_most_important_gc) to -XX:NewSize and -XX:MaxNewSize, setting the same value for both.
 * The only advantage this has compared to NewRatio is it allows more granular control of the young generation size.
 
-### Other GC Flags
+### GC Algorithm
 
-I recommend using these two flags together:
+(IMO) There are two main GC approaches that can be used.
+
+**Note: If your heap is larger than 4GB you should *always* use G1**
+
+#### CMS 
 
 * **-XX:+UseConcMarkSweepGC** 
 * **-XX:+UseParNewGC**
 
-These control what algorithm is used for garbage collection. This particular combination [uses mutliple threads to attempt to do GC in the background as to avoid application stopping](http://www.fasterj.com/articles/oraclecollectors1.shtml). If you experience Intellij becoming jerky/unresponsive during heavy usage this may alleviate those problem. There is no real reason not to use them.
+This particular combination [uses mutliple threads to attempt to do GC in the background as to avoid application stopping](http://www.fasterj.com/articles/oraclecollectors1.shtml). If you experience Intellij becoming jerky/unresponsive during heavy usage this may alleviate those problem.
+
+#### G1 (Recommended)
+
+* **-XX:+UseG1GC**
+* **-XX:-UseParNewGC**
+* **-XX:-UseConcMarkSweepGC**
+
+Introduced in JDK 7 Update 4 [G1 is similar to CMS but is built to support large heaps (4GB and larger).](http://blog.takipi.com/garbage-collectors-serial-vs-parallel-vs-cms-vs-the-g1-and-whats-new-in-java-8/) It breaks up the generations into smaller regions and keeps tracks of regions that produce more garbage. This is supposed to prevent large "stop the world" GC events that can occur in large heaps.
+
+### Other GC Flags
 
 **-XX:ParallelGCThreads=[value]** - [Specifies the number of GC thread to use for parallel GC](https://blog.codecentric.de/en/2013/01/useful-jvm-flags-part-6-throughput-collector/) (ParNewGC)
 * If not explicitly set this flag, the JVM will use a default value which is computed based on the number of available (virtual) processors. This is what you normally want to do (not set it).
