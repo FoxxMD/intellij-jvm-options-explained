@@ -105,10 +105,16 @@ These control what algorithm is used for garbage collection. This particular com
 **-XX:ReservedCodeCacheSize=[memoryValue]** - [Used to store the native code generated for compiled methods.](https://blog.codecentric.de/en/2012/07/useful-jvm-flags-part-4-heap-tuning/).
 * Jetbrains recommends [**240m**](https://intellij-support.jetbrains.com/hc/en-us/articles/206544869-Configuring-JVM-options-and-platform-properties) for this value.
 
-**-XX:-OmitStackTraceInFastThrow** - This is a flag recommended by Jetbrain. A description of what this flag does can be found [here](http://www.oracle.com/technetwork/java/javase/relnotes-139183.html). Essentially Intellij may check for certain built-in exceptions thrown in the VM -- or they may be thrown by misbehaving plugins -- and producing stack traces for an exception requires a lot of overhead. Using this option prevents stack traces from being generated for these exceptions and may therefore reduce jitteriness caused by resources being used for this purpose when the exceptions are insignificant.
+**-XX:-OmitStackTraceInFastThrow** - This is a flag recommended by Jetbrain. A description of what this flag does can be found [here](http://www.oracle.com/technetwork/java/javase/relnotes-139183.html). 
+* Essentially Intellij may check for certain built-in exceptions thrown in the VM -- or they may be thrown by misbehaving plugins -- and producing stack traces for an exception requires a lot of overhead. Using this option prevents stack traces from being generated for these exceptions and may therefore reduce jitteriness caused by resources being used for this purpose when the exceptions are insignificant.
 * There is [insignificant](https://groups.google.com/a/jclarity.com/d/msg/friends/4JOO6M29Jr0/IV5682yWh0QJ) overhead associated with using this option so it is recommended to use it unless you want to debug Intellij itself or a misbehaving plugin.
 
-**-XX:+HeapDumpOnOutOfMemoryError** - Will cause a dump of the heap when an `OutOfMemoryError` error occurs (as explained [here](http://www.oracle.com/technetwork/java/javase/clopts-139448.html#gbzrr)). There is no overhead for using this option so it may be used by default however it is not necessary unless you are experiencing `OutOfMemoryError` errors often.
+**-XX:+HeapDumpOnOutOfMemoryError** - Will cause a dump of the heap when an `OutOfMemoryError` error occurs (as explained [here](http://www.oracle.com/technetwork/java/javase/clopts-139448.html#gbzrr)). 
+* There is no overhead for using this option so it may be used by default however it is not necessary unless you are experiencing `OutOfMemoryError` errors often.
+
+**-XX:MaxJavaStackTraceDepth=[integer]** - [This specifies how many entries a stack trace for a thrown error or exception can have](https://stackoverflow.com/a/19331083) before a `StackOverflowError` is thrown.
+* The JVM has a default of 1024 entries before throwing `StackOverflowError`.
+* Since you are using IntelliJ I am assuming you would want the entire stack trace (I mean, you're developing right?) and so the recommend value for this is **-1** (unlimited).
 
 # Contributing
 
