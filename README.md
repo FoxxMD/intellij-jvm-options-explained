@@ -24,7 +24,6 @@ ___
 -server
 -Xmx[memoryValue, at least 1/4 total physical memory. Recommend 1/2 to 3/4.]
 -Xms[memoryValue, at least 1/2 Xmx. Can be = to Xmx]
--XX:NewRatio=3
 -XX:+UseConcMarkSweepGC
 -XX:+UseParNewGC
 -XX:ReservedCodeCacheSize=[between 128m and 240m, depending on how much physical memory you have available]
