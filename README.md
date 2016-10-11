@@ -21,15 +21,19 @@ ___
 ```
 -server
 -ea
--Xmx[memoryValue, at least 1/4 total physical memory. Recommend 1/2 to 3/4.]
+-Xmx[memoryValue, If total memory < 2GB then at least 1/4 total memory. If > 2GB then 1-4 GB. (See note below)]
 -Xms[memoryValue, at least 1/2 Xmx. Can be = to Xmx]
 -XX:+UseG1GC
 -XX:-UseParNewGC
 -XX:-UseConcMarkSweepGC
--XX:ReservedCodeCacheSize=[between 128m and 240m, depending on how much physical memory you have available]
+-XX:ReservedCodeCacheSize=[between 128m and 256m, depending on how much free physical memory you have available]
 -XX:-OmitStackTraceInFastThrow
 -Dsun.io.useCanonCaches=false
 ```
+
+**Note:** To tune **-Xmx** for your project pay attention to the [**Memory Indicator**](https://www.jetbrains.com/help/idea/2016.2/status-bar.html).
+* If you have free memory increase **-Xmx** until Memory Indicator usage is < 85%. 
+* If you are memory constrained and can't reach that target **-Xmx** should be at least 1/2 to 3/4 total physical memory. 
 
 # How to Edit VM Options
 
