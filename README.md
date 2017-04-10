@@ -155,6 +155,10 @@ Introduced in JDK 7 Update 4 [G1 is similar to CMS but is built to support large
 * These are minor changes and will not affect the rest of your configuration. Not a necessary flag but may see some performance improvements. 
 * Keep in mind the changes this flag turns on change for each java release so make sure to re-evaluate when/if Intellij changes the version of Java packaged with Intellij!
 
+**-Djava.net.preferIPv4Stack=[boolean]** - Specifies whether Intellij should prefer using IPv4 connections.
+* If you are experiencing connectivity issues when running Intellij under Java 1.7 Jetbrains [recommends](https://intellij-support.jetbrains.com/hc/en-us/articles/207241215-Network-connectivity-issues-when-running-under-Java-1-7) setting this flag to **true**.
+* Alternatively if your environment only accepts IPv6 connections use the flag `-Djava.net.preferIPv6Addresses=true`
+
 # Contributing
 
 Please feel free to make a PR to add/modify any options. I'm still learning about this stuff myself
