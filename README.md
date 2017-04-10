@@ -118,6 +118,10 @@ Introduced in JDK 7 Update 4 [G1 is similar to CMS but is built to support large
 * Normally not a huge factor in performance.
 * Most values I see are between 8 and 6.
 
+**-XX:SoftRefLRUPolicyMSPerMB=[value]** - [Specifies the number of milliseceonds, per free MB in the heap, a soft reference should remain alive.](http://www.oracle.com/technetwork/java/hotspotfaq-138619.html&usg=ALkJrhhmAGbWC2iXgvsPM-_VsWE1V-ewmQ#gc_softrefs)
+* The default value is **1000**. Jetbrains recommends this value be set to **50**.
+* Honestly I don't know how this helps. My speculation is that many objects in Intellij fall into a "use once" use case so decreasing this value means they are cleaned up faster.
+
 ## Everything Else
 
 **-Xss=[memoryValue]** - [Specifies the memory allocated to a new stack](http://www.onkarjoshi.com/blog/209/using-xss-to-adjust-java-default-thread-stack-size-to-save-memory-and-prevent-stackoverflowerror/)
