@@ -27,7 +27,7 @@ ___
 -XX:-UseParNewGC
 -XX:-UseConcMarkSweepGC
 -XX:ReservedCodeCacheSize=[between 128m and 256m, depending on how much free physical memory you have available]
--XX:-OmitStackTraceInFastThrow
+-XX:+OmitStackTraceInFastThrow
 -Dsun.io.useCanonCaches=false
 ```
 
@@ -137,7 +137,7 @@ Introduced in JDK 7 Update 4 [G1 is similar to CMS but is built to support large
 **-XX:ReservedCodeCacheSize=[memoryValue]** - [Used to store the native code generated for compiled methods.](https://blog.codecentric.de/en/2012/07/useful-jvm-flags-part-4-heap-tuning/).
 * Jetbrains recommends [**240m**](https://intellij-support.jetbrains.com/hc/en-us/articles/206544869-Configuring-JVM-options-and-platform-properties) for this value.
 
-**-XX:-OmitStackTraceInFastThrow** - This is a flag recommended by Jetbrain. A description of what this flag does can be found [here](http://www.oracle.com/technetwork/java/javase/relnotes-139183.html). 
+**-XX:+OmitStackTraceInFastThrow** - This is a flag recommended by Jetbrain. A description of what this flag does can be found [here](http://www.oracle.com/technetwork/java/javase/relnotes-139183.html). 
 * Essentially Intellij may check for certain built-in exceptions thrown in the VM -- or they may be thrown by misbehaving plugins -- and producing stack traces for an exception requires a lot of overhead. Using this option prevents stack traces from being generated for these exceptions and may therefore reduce jitteriness caused by resources being used for this purpose when the exceptions are insignificant.
 * There is [insignificant](https://groups.google.com/a/jclarity.com/d/msg/friends/4JOO6M29Jr0/IV5682yWh0QJ) overhead associated with using this option so it is recommended to use it unless you want to debug Intellij itself or a misbehaving plugin.
 
