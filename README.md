@@ -24,11 +24,10 @@ ___
 -Xmx[memoryValue, If total memory < 2GB then at least 1/4 total memory. If > 2GB then 1-4 GB. (See note below)]
 -Xms[memoryValue, at least 1/2 Xmx. Can be = to Xmx]
 -XX:+UseG1GC
--XX:-UseParNewGC
--XX:-UseConcMarkSweepGC
 -XX:ReservedCodeCacheSize=[between 128m and 256m, depending on how much free physical memory you have available]
 -XX:+OmitStackTraceInFastThrow
 -Dsun.io.useCanonCaches=false
+-XX:SoftRefLRUPolicyMSPerMB=50
 ```
 
 **Note:** To tune **-Xmx** for your project pay attention to the [**Memory Indicator**](https://www.jetbrains.com/help/idea/2016.2/status-bar.html).
@@ -90,20 +89,17 @@ There are two ways to manage the young generation:
 
 (IMO) There are two main GC approaches that can be used.
 
-**Note: If your heap is larger than 4GB you should *always* use G1**
+**Note: If your heap is larger than 4GB it is recommended to use G1**
 
 #### CMS 
 
 * **-XX:+UseConcMarkSweepGC** 
-* **-XX:+UseParNewGC**
 
-This particular combination [uses mutliple threads to attempt to do GC in the background as to avoid application stopping](http://www.fasterj.com/articles/oraclecollectors1.shtml). If you experience Intellij becoming jerky/unresponsive during heavy usage this may alleviate those problem.
+This option [uses mutliple threads to attempt to do GC in the background as to avoid application stopping](http://www.fasterj.com/articles/oraclecollectors1.shtml). If you experience Intellij becoming jerky/unresponsive during heavy usage this may alleviate those problem.
 
-#### G1 (Recommended)
+#### G1
 
 * **-XX:+UseG1GC**
-* **-XX:-UseParNewGC**
-* **-XX:-UseConcMarkSweepGC**
 
 Introduced in JDK 7 Update 4 [G1 is similar to CMS but is built to support large heaps (4GB and larger).](http://blog.takipi.com/garbage-collectors-serial-vs-parallel-vs-cms-vs-the-g1-and-whats-new-in-java-8/) It breaks up the generations into smaller regions and keeps tracks of regions that produce more garbage. This is supposed to prevent large "stop the world" GC events that can occur in large heaps.
 
