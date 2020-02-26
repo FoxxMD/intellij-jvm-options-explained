@@ -128,7 +128,7 @@ Introduced in JDK 7 Update 4 [G1 is similar to CMS but is built to support large
 * These refer to the **perm size** which is the memory used by the VM for data **outside of your application, just for the VM**. 
 * Normally does not need to be adjusted but if you are seeing `Java.lang.OutOfMemoryError: PermGen space ` events in Intellij often you can increase this value. Recommend **512m** and increase from their until the errors disappear.
 
-**-server** - [In a nutshell it tells the JVM to spend more time on the optimization of the fragments of codes that are most often used (hotspots). It  leads to better performance at the price of a higher overhead at startup.](https://victorpillac.com/2011/09/11/notes-on-the-java-server-flag/)
+**-server** - [In a nutshell it tells the JVM to spend more time on the optimization of the fragments of codes that are most often used (hotspots). It  leads to better performance at the price of a higher overhead at startup.](https://web.archive.org/web/20130606001921/http://victorpillac.com/2011/09/11/notes-on-the-java-server-flag/)
 
 **-XX:ReservedCodeCacheSize=[memoryValue]** - [Used to store the native code generated for compiled methods.](https://blog.codecentric.de/en/2012/07/useful-jvm-flags-part-4-heap-tuning/).
 * Jetbrains recommends [**240m**](https://intellij-support.jetbrains.com/hc/en-us/articles/206544869-Configuring-JVM-options-and-platform-properties) for this value.
