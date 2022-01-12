@@ -149,7 +149,7 @@ Introduced in JDK 7 Update 4 [G1 is similar to CMS but is built to support large
 
 **-Dsun.io.useCanonCaches=[boolean]** - Specifies whether canonical file paths are cached.
 * [By default java caches filenames for 30 seconds](https://stackoverflow.com/a/7479642).
-* Jetbrians recommend setting the value of this option to [**false**](https://intellij-support.jetbrains.com/hc/en-us/articles/206544869-Configuring-JVM-options-and-platform-properties). I'm guessing this is because IntelliJ frequently deals with file paths/names and frequent changes can cause a performance hit when these properties change and the filenames are still cached.
+* Jetbrains recommend setting the value of this option to [**false**](https://intellij-support.jetbrains.com/hc/en-us/articles/206544869-Configuring-JVM-options-and-platform-properties). I'm guessing this is because IntelliJ frequently deals with file paths/names and frequent changes can cause a performance hit when these properties change and the filenames are still cached.
 
 **-XX:+AggressiveOpts** - [Turns on some peformance optimizations](https://dzone.com/articles/turbo-charging-eclipse#AO) that are expected to be on by default in upcoming releases. 
 * These are minor changes and will not affect the rest of your configuration. Not a necessary flag but may see some performance improvements. 
